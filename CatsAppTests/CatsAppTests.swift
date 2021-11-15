@@ -8,26 +8,22 @@
 import XCTest
 @testable import CatsApp
 
-class CatsAppTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class CatsJsonDecoderUnitTest: XCTestCase {
+    
+    var catsApi: CatsAPIService!
+    var catsJsonDecoder: CatsJsonDecoder!
+        
+    override func setUp() {
+        self.catsApi = CatsApiMock()
+        self.catsJsonDecoder = CatsJsonDecoder()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testRetrieveCatsValidResponse(){
+        var decodedCats: [Cat]?
+        catsApi.fetchCats { [weak self] data in
+            decodedCats = try? self?.catsJsonDecoder.decode(json: data)
         }
+        XCTAssertNotNil(decodedCats)
+        XCTAssertEqual(decodedCats?.first?.name, "Max")
     }
-
 }
