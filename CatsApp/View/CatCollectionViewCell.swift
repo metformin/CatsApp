@@ -31,13 +31,15 @@ class CatCollectionViewCell: UICollectionViewCell {
         catNameLabel.contentMode = .center
         catNameLabel.textAlignment = .center
         catNameLabel.textColor = .white
-        catNameLabel.backgroundColor = .gray.withAlphaComponent(0.6)
+        catNameLabel.backgroundColor = .gray.withAlphaComponent(0.7)
+        
         return catNameLabel
     }()
     private lazy var catImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
         image.tintColor = .white
+
         return image
     }()
 
@@ -47,6 +49,7 @@ class CatCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = .appLightGrey
         configureUI()
+
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +58,8 @@ class CatCollectionViewCell: UICollectionViewCell {
     
     //MARK: - UI Helper Functions
     func configureUI(){
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 20
         self.addSubview(catImage)
         catImage.anchor(top: self.topAnchor, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor)
         
@@ -62,6 +67,8 @@ class CatCollectionViewCell: UICollectionViewCell {
         imageDownloadIndicator.centerX(inView: self)
         imageDownloadIndicator.centerY(inView: self)
         imageDownloadIndicator.setDimensions(height: 50, width: 50)
+        
+        
         
     }
     
